@@ -78,3 +78,41 @@ const isMatched = await bcrptjs.compare(password,userMail.password)
 
 [ <u>click here to explore about BCRYPT </u>](https://www.npmjs.com/package/bcryptjs)
 
+## NODE JS AUTHENTICATION AND COOKIES 
+```npm
+npm i jsonwebtoken
+```
+JSON Web Token is a standard used to create access tokens for an application.
+
+[ CLICK HERE TOLERN MORE ABOUT JWT AUTHENTICATION  ](https://flaviocopes.com/jwt/)
+
+
+
+example:-
+
+```javascript
+const jwt = require("jsonwebtoken");
+
+const createToken = async()=>{
+const token = await jwt.sign({_id:"6502d1d3d67300f439ee0567"} ,"thisiasecretkeywebtokentoauthenticateuser",{expireIn:"2 seconds"})
+console.log(token)
+
+const userVerification = await jwt.verify(token,"thisiasecretkeywebtokentoauthenticateuser");
+
+}
+
+createToken();
+
+```
+payload  
+
+***JWT SECRET*** 
+JWT secret key is a `cryptographic` string used to sign JSON Web Tokens (JWT). It ensures the `token's integrity`, prevents tampering, and verifies the sender's `authenticity` in secure communications.
+
+secret key length min length 32 character
+
+[ https://github.com/auth0/node-jsonwebtoken  JSON WEB TOKEN ](https://github.com/auth0/node-jsonwebtoken)
+
+[CLICK HERE TO FIND ](https://jwt.io/introduction)
+
+
