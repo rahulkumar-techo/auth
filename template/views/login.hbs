@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{>header}}
+</head>
+<body>
+     {{>navbar}}
+    
+<form action="/login" class="form-signin" method="POST">
+<div class="container bg-primary p-4 mt-4">
+<div class="mb-3">
+  <label for="exampleFormControlInput1" class="form-label">Email address</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="email@example.com" name="email">
+</div>
+
+<label for="inputPassword5" class="form-label">Password</label>
+<input type="password" class="form-control mb-3"name="password">
+
+<input type="submit" class="w-100 p-1">
+
+</div>
+</form>
+
+
+
+    {{!-- script --}}
+     {{>script}}
+</body>
+</html>
