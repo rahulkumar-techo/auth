@@ -116,3 +116,8 @@ secret key length min length 32 character
 [CLICK HERE TO FIND ](https://jwt.io/introduction)
 
 
+### GENERATE TOKEN REGISTER FORM 
+
+
+
+---

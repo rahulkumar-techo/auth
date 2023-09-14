@@ -51,6 +51,10 @@ if(password === cpassword){
         cpassword:req.body.cpassword,
         gender:req.body.gender,
     });
+
+    const token = await storeDataInDataBase.generateToken();
+    console.log("TOKEN" +token)
+    
     const saveDataBaseData = await storeDataInDataBase.save();
     res.status(201).render("index");
 
@@ -75,7 +79,6 @@ app.post("/login" , async (req,res) =>{
     
 
     const isMatched = await bcrptjs.compare(password,userMail.password)
-    console.log(isMatched)
 
    if(isMatched){
 
