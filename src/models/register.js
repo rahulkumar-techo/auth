@@ -11,7 +11,8 @@ const schemaRegister = new mongoose.Schema({
   password: { type: String },
   cpassword: { type: String },
   gender: { type: String,  },
-  token:[{token:{type:String,required:true}}]})
+  token:[{token:{type:String,required:true}}]}
+  )
 // Instance methods as it is
 schemaRegister.methods.generateToken = async function(){
 try {

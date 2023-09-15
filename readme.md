@@ -118,6 +118,41 @@ secret key length min length 32 character
 
 ### GENERATE TOKEN REGISTER FORM 
 
+***what is token ? 🎟️.***
+
+a token is like a "ticket" or "proof" that represents something specific. Imagine you go to an arcade, and you exchange your money for small tokens or coins. These tokens can be used to play games in that arcade. Similarly, in various digital contexts, tokens can represent access rights, ownership, value, or any other sort of claim. They are like digital versions of those arcade tokens, but with many more uses
+
+***cookie 🍪***
+
+A "cookie" in the context of the web is a small piece of data sent from a website and stored on the user's computer by the user's web browser while the user is browsing. Cookies are used to remember information about the user, such as login status, preferences, or items added to a shopping cart.
+
+```js
+// app.js file main file
+    const token = await storeDataInDataBase.generateToken();
+
+```
+
+```js
+// register file
+
+new mongoose.Schema(
+// we always need to create token in Schema 
+  token:[{token:{type:String,required:true}}]
+)
+
+  const token = await jwt.sign({_id:this._id.toString()},process.env.SECRET_KEY)
+  this.token = this.token.concat({token:token});
+
+   await this.save(); // save the token inside Schema .
+  return token;
+
+```
+
+login doc
+
+```js
+const token = await userMail.generateToken();// userMail return ref of the new collection docs.extracted from same register file register.js because of same token ... file from app.js
+```
 
 
 ---
