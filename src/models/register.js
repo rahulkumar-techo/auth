@@ -15,7 +15,7 @@ const schemaRegister = new mongoose.Schema({
 // Instance methods as it is
 schemaRegister.methods.generateToken = async function(){
 try {
-  const token = await jwt.sign({_id:this._id.toString()},"thisiscustomisedsecretkeykeepers")
+  const token = await jwt.sign({_id:this._id.toString()},process.env.SECRET_KEY)
   // console.log("token",token)
   this.token = this.token.concat({token:token});
 
