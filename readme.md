@@ -156,3 +156,145 @@ const token = await userMail.generateToken();// userMail return ref of the new c
 
 
 ---
+
+## STRONG JWT TOKEN IN COOKIES 
+Authenticate user login 
+
+storing token in Cookie. in registraction and login router or page .
+
+```js
+ //the res.cookie function is used to set cookie name to value.
+    //the value parameter may be a string or object converted to json.
+    // res.cookie is inbuilt 
+
+    // SYNTAX:- res.cookie(name,value,[opitons]) options for expired
+    //httpOnly with the help of this client can't modified jwt form js cookie
+    // to set cookie 
+      res.cookie('jwt',token,{
+         expires:new Date(Date.now()+30000) ,
+         httpOnly:true
+      });
+
+```
+
+---
+### COOKIE PARSER .
+
+
+#### How to get cookie Value (jwt Token) ? using Cookie-parser in NodeJs ExpressJs and MongoDB ? .
+
+```npm
+npm i cookie-parser
+```
+***Parse Cookie header and populate req.cookies*** with an object keyed by the cookie names. Optionally you may enable signed cookie support by passing a secret string, which assigns req.secret so it may be used by other middleware.
+
+[https://www.npmjs.com/package/cookie-parser](https://www.npmjs.com/package/cookie-parser)
+
+app.js 
+
+```js
+const cookie_parser = require("cookie-parser");
+
+// create a secret page to check is current cookie are valid or not .
+
+req.cookies.cookies_name //to get cookie 
+
+app.get("secret" , (req,res) =>{
+// you will get cookie value after created and visted to this site.
+
+   console.log(` Cookie-parser to get cookie value ${req.cookies.jwt}`);
+  res.render("secret")
+})
+
+ console.log(` Cookie-parser to get cookie value ${req.cookies.jwt}`);
+
+
+
+```
+NOTE:- you can't call cookie value directly after creating cookie . it'll give you undefined .
+
+--- 
+
+#### USER AUTHENTICATION WITH JWT IN NODE JS
+
+with help of authentication we can show the particular page that where user want to visit .
+
+Q. How to check user are authenticated or not ?.
+
+Auth.js  File.?
+ 
+```js
+
+const jwt = require("jsonwebtoken");
+const Register = require("../models/register");
+
+const auth = async (req, res, next) => {
+  try {
+    // getting cookies value (jwt token)
+    const token = req.cookies.jwt;
+    const verifyUser = jwt.verify(token, process.env.SECRET_KEY);
+    console.log(verifyUser);
+    
+     //with the help of verifyUser id we can easily acess documents data.
+    const userToken = await Register.findOne({ _id:verifyUser._id});
+    console.log(userToken.fname);
+
+    next();
+  } catch (error) {
+    res.status(401).send("error at auth " + error);
+  }
+};
+
+module.exports = auth;
+
+```
+
+## HOW to Logout & Delete COokies (JWT Token) in node js & MongoDb :23min
+
+delete a paricular token
+
+
+```js
+//  auth.js
+ req.token =token;
+    req.user=user;
+```
+
+
+```js
+// app.js
+
+app.get("/logout",auth, async(req, res) => {
+ 
+  try {
+
+req.user.token = req.user.token.filter((currentToken) =>{
+
+  return currentToken.token !== req.token;
+
+})
+// console.log(req.user.token+"user tokens ")
+
+    res.clearCookie('jwt');
+    console.log("logout successfully")
+    await req.user.save();
+    res.render('login')
+
+    
+  } catch (error) {
+    res.status(500).send({message:error})
+  }
+});
+```
+
+---
+
+### Clear All token or log out from all the devices.
+
+```js
+
+req.user.token = [];
+
+```
+
+
